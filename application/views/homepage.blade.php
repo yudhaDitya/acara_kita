@@ -97,7 +97,7 @@
 
                         <div class="mt-3">
                             <a href="" class="btn btn-sm btn-primary btn-block">Ajukan Proposal Acara</a>
-                            <a href="" class="btn btn-sm btn-info btn-block">Beri Donasi</a>
+                            <button type="button" onclick="add_mhs()" class="btn btn-sm btn-info btn-block">Beri Donasi</button>
                         </div>
                     </div>
                 </div>
@@ -154,4 +154,134 @@
 
     </div>
 </section>
+<div class="modal fade" id="modal_form" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="judulModal">Tambah Donasi</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form action="#" id="form" class="form-horizontal">
+              <input type="hidden" value="" name="id_rth"/>
+              <div class="modal-body">
+                <!--  form tmbah donasi -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="nim">Nama / Instansi </label>
+                    <input type="text" class="form-control" id="nama" name="nama" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="rupiah">Jumlah Transfer </label>
+                    <input type="number" class="form-control" id="rupiah" name="rupiah" required data-validation-required-message="This field is required">
+                  </div>
+                  <div class="form-group">
+                    <label for="nama_mhs"> Debit Card Number </label>
+                    <input type="text" class="form-control" id="nama_mhs" name="nama_mhs" required data-validation-required-message="This field is required">
+                  </div>
+                  <div class="form-group">
+      
+                    <label for="expiry-date">Expiry</label>
+                    <select id="expiry-date">
+                        <option>MM</option>
+                        <option value="1">01</option>
+                        <option value="2">02</option>
+                        <option value="3">03</option>
+                        <option value="4">04</option>
+                        <option value="5">05</option>
+                        <option value="6">06</option>
+                        <option value="7">07</option>
+                        <option value="8">08</option>
+                        <option value="9">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <span>/</span>
+                     <select id="expiry-date">
+                        <option>YYYY</option>
+                        <option value="16">2016</option>
+                        <option value="17">2017</option>
+                        <option value="18">2018</option>
+                        <option value="19">2019</option>
+                        <option value="20">2020</option>
+                        <option value="21">2021</option>
+                        <option value="22">2022</option>
+                        <option value="23">2023</option>
+                        <option value="24">2024</option>
+                        <option value="25">2025</option>
+                        <option value="26">2026</option>
+                        <option value="27">2027</option>
+                        <option value="28">2028</option>
+                        <option value="29">2029</option>
+                        <option value="30">2030</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="nama_mhs"> Phone Number </label>
+                    <input type="text" class="form-control" id="nama_mhs" name="nama_mhs" required data-validation-required-message="This field is required">
+                  </div>
+                  <div class="form-group">
+                    <label for="nama_mhs">OTP</label>
+                    <input type="text" class="form-control" id="nama_mhs" name="nama_mhs" required data-validation-required-message="This field is required">
+                  </div>
+                </div></div>
+              </form>
+              <div class="modal-footer">
+                <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#example1').DataTable();
+  } );
+    var save_method; //for save method string
+    var table;
+    var rupiah = document.getElementById('rupiah');
+
+
+    function add_mhs()
+    {
+    console.log('modal');
+
+      save_method = 'add';
+      $('#form')[0].reset(); // reset form on modals
+      $('#modal_form').modal('show'); // show bootstrap modal
+    //$('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
+    }
+    rupiah.addEventListener('keyup', function(e) {
+    // tambahkan 'Rp.' pada saat form di ketik
+    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    console.log('rp', e);
+    rupiah.value = formatRupiah(this.value, "Rp. ");
+    });
+
+    /* Fungsi formatRupiah */
+    function formatRupiah(angka, prefix) {
+    var number_string = angka.replace(/[^,\d]/g, "").toString(),
+        split = number_string.split(","),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if (ribuan) {
+        separator = sisa ? "." : "";
+        rupiah += separator + ribuan.join(".");
+    }
+
+    rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+    return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+    }
+
+ 
+  </script>
+
+
 @endsection
