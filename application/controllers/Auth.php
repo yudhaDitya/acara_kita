@@ -71,23 +71,19 @@ class Auth extends MY_Controller
 			$data_eo = [
 				'id_pengguna' => $id_user,
 				'nama_eo'     => $data['nama_eo'],
-				'telp'        => $data['telp'], 
+				// 'telp'        => $data['telp'], 
 				'asal'        => $data['asal'], 
 			]; 
-			$this->eo_model->insert($data_eo);
+			$eo_id = $this->eo_model->insert($data_eo);
 
 			$session_data = array(
 				'id_user'       => $id_user,
 				'username'      => $data['username'],
-				'hak_akses'     => $data['hak_akses'],
+				'hak_akses'     => $data_user['hak_akses'],
 				'nama'	        => $data['nama_user'],  
-			);  
-			
-			if ($data['hak_akses'] == 'E') {
-					$event_organizer       = $this->eo_model->where('id_pengguna', $data['id'])->get();
-					$session_data['eo_id'] = $event_organizer->id;
-			}
-			$this->CI->session->set_userdata($session_data);
+				'eo_id'			=> $eo_id
+			);   
+			$this->session->set_userdata($session_data);
 
 			$this->message("Pendaftaran Berhasil", 'success');
 			$this->go('eo/dashboard');

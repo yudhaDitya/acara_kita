@@ -25,6 +25,7 @@
 $hak_akses = $this->session->userdata['hak_akses'];
 
 if ($hak_akses != 'E') {
+    die();
     redirect('admin/dashboard');
 }
 ?>
