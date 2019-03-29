@@ -45,9 +45,9 @@
                         </div>
                     </div> 
                     <div class="form-group row">
-                        <label for="kecamatan" class="col-sm-2 col-form-label">Kecamatan</label>
+                        <label for="id_kecamatan" class="col-sm-2 col-form-label">Kecamatan</label>
                         <div class="col-sm-5">
-                            <select name="kecamatan" id="kecamatan" class="custom-select mb-2">
+                            <select name="id_kecamatan" id="id_kecamatan" class="custom-select mb-2">
                                 <option value="">- Pilih Kecamatan -</option>
                                 @foreach ($kecamatan as $val)
                                     <option {{ ($data->id_kecamatan == $val->id)?'selected':'' }} value="{{ $val->id }}">{{ $val->kecamatan }}</option>

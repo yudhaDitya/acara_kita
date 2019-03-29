@@ -80,10 +80,7 @@ class Ruang_terbuka extends MY_Controller
 	}
 
 	public function hapus($id)
-	{
-		$this->db->where('id_barang', $id);
-		$this->db->delete('riwayat_stok'); 
-
+	{  
 		$this->ruang_model->delete($id);
 		$this->go('admin/ruang_terbuka');
 	}
