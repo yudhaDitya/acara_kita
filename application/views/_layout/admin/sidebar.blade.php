@@ -19,7 +19,7 @@ $sub_page = $this->uri->segment(3);
                         <a class="nav-link {{ ($page == 'dashboard')?'active':'' }}" href="{{ site_url('admin/dashboard'); }}"><i class="fa fa-fw fa-home"></i>Beranda</a> 
                     </li>  
                     <li class="nav-item">
-                        <a class="nav-link {{ ($page == 'produk')?'active':'' }}" href="{{ site_url('admin/produk'); }}"><i class="fa fa-fw fa-boxes"></i>Pengajuan Acara</a> 
+                        <a class="nav-link {{ ($page == 'acara')?'active':'' }}" href="{{ site_url('admin/acara'); }}"><i class="fa fa-fw fa-boxes"></i>Daftar Pengajuan Acara</a> 
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ ($page == 'produk')?'active':'' }}" href="{{ site_url('admin/produk'); }}"><i class="fa fa-fw fa-boxes"></i>Donasi</a> 

@@ -22,7 +22,7 @@ class Ruang_terbuka extends MY_Controller
 	public function tambah()
 	{
 		$data = array(
-			'kecamatan'	   => $this->kecamatan_model->get_all() 
+			'kecamatan'	=> $this->kecamatan_model->get_all()
 		);
 
 		$this->generateCsrf();

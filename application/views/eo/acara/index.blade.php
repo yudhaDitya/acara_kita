@@ -50,11 +50,19 @@
                                     <td>{{ $value->tanggal }} - {{ $value->waktu }}</td>
                                     <td>{{ $value->ruang->nama_rt }}</td>
                                     <td>{{ rupiah($value->nominal_dana) }}</td>
-                                    <td>{{ $value->status }}</td>
                                     <td>
-                                        <a href="{{ site_url('admin/barang/detail/'.$value->id); }}"><i class="fas fa-eye"></i></a>
-                                        <a href="{{ site_url('admin/barang/edit/'.$value->id); }}"><i class="fas fa-edit"></i></a>
-                                        <a href="{{ site_url('admin/barang/hapus/'.$value->id); }}" onclick="return confirm('Apakah anda yakin?')"><i class="fas fa-trash"></i></a>
+                                        @if ($value->status == 0)
+                                            <span class="badge badge-warning">Belum Dilihat</span>
+                                        @elseif($value->status == 1)
+                                            <span class="badge badge-success">Disetujui</span>
+                                        @else
+                                            <span class="badge badge-danger">Ditolak</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ site_url('eo/acara/detail/'.$value->id); }}"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ site_url('eo/acara/edit/'.$value->id); }}"><i class="fas fa-edit"></i></a>
+                                        <a href="{{ site_url('eo/acara/hapus/'.$value->id); }}" onclick="return confirm('Apakah anda yakin?')"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr> 
                             @endforeach 

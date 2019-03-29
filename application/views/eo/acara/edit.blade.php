@@ -1,4 +1,4 @@
-@layout("_layout/admin/app")
+@layout("_layout/eo/app")
 
 @section('content')
 <!-- ============================================================== -->
@@ -9,17 +9,17 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-md-6">
-                    <h3 class="mb-0 mt-2 align-items-center">Edit Barang</h3> 
+                    <h3 class="mb-0 mt-2 align-items-center">Pengajuan Proposal Acara</h3> 
                 </div>
                 <div class="col-md-6 text-right">
-                    <a href="{{ site_url('admin/barang') }}" class="btn btn-warning btn-sm mb-2"><i class="fas fa-arrow-left"></i> Kembali</a> 
+                    <a href="{{ site_url('eo/acara') }}" class="btn btn-warning btn-sm mb-2"><i class="fas fa-arrow-left"></i> Kembali</a> 
                 </div>
             </div>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb"> 
-                        <li class="breadcrumb-item"><a href="{{ site_url('admin/barang') }}">Data Barang</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                        <li class="breadcrumb-item"><a href="{{ site_url('eo/acara') }}">Data Acara</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Ubah Data</li>
                     </ol>
                 </nav>
             </div>
@@ -34,51 +34,82 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body"> 
-                <form action="{{ site_url('admin/barang/ubah') }}" method="POST">
+                <form action="{{ site_url('eo/acara/ubah') }}" method="POST" enctype="multipart/form-data">
                     {{ $csrf }}
-                    {{ form_hidden('id', $data->id) }}
-                    {{ form_hidden('stok_awal', $stok) }}
+                    {{ form_hidden("id", $data->id) }}
 
                     <div class="form-group row">
-                        <label for="nama_barang" class="col-sm-2 col-form-label">Nama Barang</label>
+                        <label for="judul_acara" class="col-sm-2 col-form-label">Judul Acara</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control form-control-lg" id="nama_barang" name="nama_barang" value="{{ $data->nama_barang }}">
+                            <input type="text" class="form-control mb-3" id="judul_acara" name="judul_acara" value="{{ $data->judul_acara }}">
+                        </div>
+                    </div>  
+                    <div class="form-group row">
+                        <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control mb-3" id="tanggal" name="tanggal" value="{{ $data->tanggal }}">
                         </div>
                     </div> 
                     <div class="form-group row">
-                        <label for="id_jenis_barang" class="col-sm-2 col-form-label">Jenis Barang</label>
+                        <label for="waktu" class="col-sm-2 col-form-label">Waktu</label>
                         <div class="col-sm-5">
-                            <select name="id_jenis_barang" id="id_jenis_barang" class="custom-select">
-                                @foreach ($kategori as $val)
-                                    <option {{ ($data->id_jenis_barang == $val->id)?'selected':'' }} value="{{ $val->id }}">{{ $val->nama_jenis }}</option>
+                            <input type="text" class="form-control mb-3" id="waktu" name="waktu" placeholder="Contoh: 07:00 - 10:00" value="{{ $data->waktu }}">
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="id_rt" class="col-sm-2 col-form-label">Lokasi</label>
+                        <div class="col-sm-5">
+                            <select name="id_rt" id="id_rt" class="custom-select mb-3">
+                                <option value="">- Pilih Lokasi -</option>
+                                @foreach ($ruang_terbuka as $val)
+                                    <option {{ ($data->id_rt == $val->id)?'selected':'' }} value="{{ $val->id }}">{{ $val->nama_rt }}</option>
                                 @endforeach
-                            </select>
-
-                            <small><a class="text-primary" href="{{ site_url('admin/master/kategori_barang'); }}">Tambah Kategori</a></small>
+                            </select> 
                         </div>
                     </div> 
                     <div class="form-group row">
-                        <label for="harga_beli" class="col-sm-2 col-form-label">Harga Beli</label>
+                        <label for="id_ktg_acara" class="col-sm-2 col-form-label">Kategori Acara</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control form-control-lg" id="harga_beli" name="harga_beli" value="{{ money($data->harga_beli) }}">
+                            <select name="id_ktg_acara" id="id_ktg_acara" class="custom-select mb-3">
+                                <option value="">- Pilih Kategori -</option>
+                                @foreach ($kategori_acara as $val)
+                                    <option {{ ($data->id_ktg_acara == $val->id)?'selected':'' }} value="{{ $val->id }}">{{ $val->nama_kategori }}</option>
+                                @endforeach
+                            </select> 
                         </div>
                     </div> 
                     <div class="form-group row">
-                        <label for="harga_jual" class="col-sm-2 col-form-label">Harga Jual</label>
+                        <label for="nominal_dana" class="col-sm-2 col-form-label">Kebutuhan Dana</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control form-control-lg" id="harga_jual" name="harga_jual" value="{{ money($data->harga_jual) }}">
+                            <input type="text" class="form-control mb-3" id="nominal_dana" name="nominal_dana" value="{{ money($data->nominal_dana) }}">
                         </div>
                     </div> 
                     <div class="form-group row">
-                        <label for="stok" class="col-sm-2 col-form-label">Jumlah Stok</label>
-                        <div class="col-sm-3">
-                            <input type="number" class="form-control form-control-lg" id="stok" name="stok" value="{{ $stok }}">
+                        <label for="deskripsi" class="col-sm-2 col-form-label">Deskripsi</label>
+                        <div class="col-sm-5">
+                            <textarea name="deskripsi" id="deskripsi" class="form-control mb-3">{{ $data->deskripsi }}</textarea>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="proposal" class="col-sm-2 col-form-label">Upload Proposal</label>
+                        <div class="col-sm-5">
+                            <input type="file" class="form-control" id="proposal" name="proposal">
+                            <small class="mb-3">Kosongi dulu bila proposal masih dalam pembuatan</small>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="foto" class="col-sm-2 col-form-label">Upload Foto</label>
+                        <div class="col-sm-5">
+                            <input type="file" class="form-control" id="foto" name="foto">
+                            <small class="mb-3">Kosongi dulu bila proposal masih dalam pembuatan</small>
                         </div>
                     </div> 
                     <div class="form-group row">
                         <label for="harga" class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-5">
-                            <button type="submit" class="btn btn-primary">Ubah</button>
+                            <!-- <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i> Simpan Sementara</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Ajukan</button> -->
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                         </div>
                     </div> 
                 </form>
@@ -92,13 +123,9 @@
 <script src="https://myfinance.jinggolabs.com/assets/front/vendor/cleave/cleave.min.js"></script>
 
 <script>
-    var harga_beli = new Cleave('#harga_beli', {
+    var nominal_dana = new Cleave('#nominal_dana', {
         numeral: true,
         numeralThousandsGroupStyle: 'thousand'
-    });
-    var harga_jual = new Cleave('#harga_jual', {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand'
-    });
+    }); 
 </script>
 @endsection

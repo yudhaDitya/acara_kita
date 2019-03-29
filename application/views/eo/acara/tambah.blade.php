@@ -106,8 +106,9 @@
                     <div class="form-group row">
                         <label for="harga" class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-5">
-                            <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i> Simpan Sementara</button>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Ajukan</button>
+                            <!-- <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i> Simpan Sementara</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Ajukan</button> -->
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                         </div>
                     </div> 
                 </form>
@@ -124,10 +125,6 @@
     var nominal_dana = new Cleave('#nominal_dana', {
         numeral: true,
         numeralThousandsGroupStyle: 'thousand'
-    });
-    var harga_jual = new Cleave('#harga_jual', {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand'
-    });
+    }); 
 </script>
 @endsection

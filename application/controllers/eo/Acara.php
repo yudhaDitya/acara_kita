@@ -9,11 +9,13 @@ class Acara extends MY_Controller
 		$this->load->model('ruang_model');
 		$this->load->model('kecamatan_model');
 		$this->load->model('kategori_acara_model');
-		$this->load->model('eo/acara_model', 'acara_model'); 
+		$this->load->model('eo/acara_model', 'acara_model');
+
+		$this->eo_id = $this->session->userdata['eo_id'];
 	}
 
 	public function index()
-	{  
+	{ 
 		$data = array(
 			'data' => $this->acara_model->with_kategori()->with_ruang()->get_all()
 		);
@@ -22,7 +24,7 @@ class Acara extends MY_Controller
 	}
 
 	public function tambah()
-	{    
+	{
 		$data = array(
 			'kategori_acara' => $this->kategori_acara_model->with_kecamatan()->get_all(),
 			'ruang_terbuka'  => $this->ruang_model->get_all()
@@ -36,7 +38,40 @@ class Acara extends MY_Controller
 		$data = $this->input->post();
 		
 		$data['nominal_dana']  = str_replace(',', '', $data['nominal_dana']);
+		$data['id_eo']         = $this->eo_id;
 
+		if (!empty($_FILES['proposal']['name'])) {
+			$proposal         = $this->upload_proposal();
+			$data['proposal'] = $proposal;
+		}
+		// if (!empty($_FILES['foto']['name'])) {
+		// 	$foto         = $this->upload_foto();
+		// 	$data['foto'] = $foto; 
+		// }
+
+		$id = $this->acara_model->insert($data);
+		$this->message("Data berhasil disimpan", 'success');
+
+		$this->go('eo/acara/detail/'.$id);
+	}
+
+	public function edit($id)
+	{    
+		$data = array(
+			'data'	         => $this->acara_model->get($id),
+			'kategori_acara' => $this->kategori_acara_model->with_kecamatan()->get_all(),
+			'ruang_terbuka'  => $this->ruang_model->get_all()
+		); 
+
+		$this->generateCsrf();
+		$this->render('eo/acara/edit', $data);
+	}
+	public function ubah()
+	{
+		$data = $this->input->post();
+		// $data['id_eo'] = ;
+		$data['nominal_dana']  = str_replace(',', '', $data['nominal_dana']);
+		
 		if (!empty($_FILES['proposal']['name'])) {
 			$proposal         = $this->upload_proposal();
 			$data['proposal'] = $proposal; 
@@ -45,71 +80,18 @@ class Acara extends MY_Controller
 		// 	$foto         = $this->upload_foto();
 		// 	$data['foto'] = $foto; 
 		// } 
-		
-
-		$this->acara_model->insert($data);
-		$this->message("Data berhasil disimpan", 'success');
-
-		$this->go('eo/acara');
-	}
-
-	public function edit($id)
-	{    
-		$data = array(
-			'data'	   => $this->acara_model->get($id),
-			'kategori' => $this->kategori_model->get_all(),
-			'stok'	   => $this->acara_model->getStok($id)
-		);
-
-		$this->generateCsrf();
-		$this->render('eo/acara/edit', $data);
-	}
-	public function ubah()
-	{
-		$data       = $this->input->post();
-		$stok_awal  = $data['stok_awal'];
-		$stok_input = $data['stok'];
-		$id 	    = $data['id'];
-
-		unset($data['stok']);
-		unset($data['stok_awal']);
 		unset($data['id']);
-  
-		$data['harga_beli']  = str_replace(',', '', $data['harga_beli']);
-		$data['harga_jual']  = str_replace(',', '', $data['harga_jual']);
-		$data['updated_at']  = gmdate("Y-m-d H:i:s", time()+60*60*7);  
-		$data['updated_by']  = 1;  
 
 		$this->acara_model->update($data, $this->input->post('id'));
-
-		if ($stok_awal == $stok_input) {
-			$this->go('eo/acara');			
-		} else if ($stok_input < $stok_awal) {
-			$jumlah = $stok_awal - $stok_input;
-			$status = 'K';
-		} else if ($stok_input > $stok_awal) { 
-			$jumlah = $stok_input - $stok_awal;
-			$status = 'M';
-		} 
-
-		$data_riwayat_stok = array(
-			'id_barang'   => $id, 
-			'jumlah'      => $jumlah,
-			'status'      => $status,
-			'keterangan'  => "Perubahan stok di edit data",
-			'updated_at'  => gmdate("Y-m-d H:i:s", time()+60*60*7),
-			'updated_by'  => 1,
-		);
-		$this->stok_model->insert($data_riwayat_stok);
-
-		$this->go('eo/acara');
+ 
+		$this->go('eo/acara/detail/'.$this->input->post('id'));
 	}
 
 	public function detail($id)
 	{
-		$data['data'] = $this->acara_model->with_kategori()->get($id);
-		$data['stok'] = $this->acara_model->getStok($id);
+		$data['data'] = $this->acara_model->with_kategori()->with_ruang()->get($id); 
 
+		$this->generateCsrf();
 		$this->render('eo/acara/detail', $data);
 	}
 
@@ -120,6 +102,18 @@ class Acara extends MY_Controller
 
 		$this->acara_model->delete($id);
 		$this->go('eo/acara');
+	}
+
+	public function do_upload($id)
+	{ 
+		if (!empty($_FILES['foto']['name'])) {
+			$foto         = $this->upload_foto();
+			$data['foto'] = $foto; 
+		}
+
+		$this->acara_model->update($data, $id);
+
+		$this->go('eo/acara/detail/'.$id);
 	}
 
 	
