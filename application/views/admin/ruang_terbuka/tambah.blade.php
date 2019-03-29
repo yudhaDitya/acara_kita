@@ -49,7 +49,7 @@
                             <select name="kecamatan" id="kecamatan" class="custom-select mb-2">
                                 <option value="">- Pilih Kecamatan -</option>
                                 @foreach ($kecamatan as $val)
-                                    <option value="{{ $val->id }}">{{ $val->nama_kecamatan }}</option>
+                                    <option value="{{ $val->id }}">{{ $val->kecamatan }}</option>
                                 @endforeach
                                 <option value="12">Rogojampi</option>
                             </select> 

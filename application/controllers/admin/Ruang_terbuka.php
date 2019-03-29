@@ -49,6 +49,7 @@ class Ruang_terbuka extends MY_Controller
 	{    
 		$data = array(
 			'data'	   => $this->ruang_model->get($id), 
+			'kecamatan'	=> $this->kecamatan_model->get_all()
 		);
 
 		$this->generateCsrf();

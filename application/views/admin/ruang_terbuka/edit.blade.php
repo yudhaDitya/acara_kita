@@ -50,9 +50,8 @@
                             <select name="kecamatan" id="kecamatan" class="custom-select mb-2">
                                 <option value="">- Pilih Kecamatan -</option>
                                 @foreach ($kecamatan as $val)
-                                    <option value="{{ $val->id }}">{{ $val->nama_kecamatan }}</option>
-                                @endforeach
-                                <option value="12">Rogojampi</option>
+                                    <option {{ ($data->id_kecamatan == $val->id)?'selected':'' }} value="{{ $val->id }}">{{ $val->kecamatan }}</option>
+                                @endforeach 
                             </select> 
                         </div>
                     </div> 

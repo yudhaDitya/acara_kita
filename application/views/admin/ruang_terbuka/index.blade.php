@@ -35,6 +35,7 @@
             <div class="card-body card-table"> 
                 <table class="table table-hover">
                     <thead class="bg-grey"> 
+                        <th></th>
                         <th>Nama</th>
                         <th>Kecamatan</th>
                         <th>Alamat</th> 
@@ -44,6 +45,10 @@
                         @if (!empty($data))
                             @foreach ($data as $value)
                                 <tr>    
+                                    <?php 
+                                        $foto = (empty($value->foto)) ? site_url('uploads/ruang_terbuka/default.png') : site_url('uploads/ruang_terbuka/'.$value->foto); 
+                                    ?> 
+                                    <td width="10%"><img src="{{ $foto }}" class="img-fluid" style="width: 100px"></td>
                                     <td>{{ $value->nama_rt }}</td>
                                     <td>{{ $value->kecamatan->kecamatan }}</td>  
                                     <td>{{ $value->alamat }}</td>  
