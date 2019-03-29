@@ -54,12 +54,9 @@
     <section id="footer" class="py-5 bg-dark text-white">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    Lorem ipsumasda, dolor sit amet consectetur adipisicing elit. Molestias repellat iste explicabo reprehenderit minima omnis quas est! Placeat error, officia laudantium, aperiam nobis et eos deserunt nemo, ipsum neque ad.
-                </div>
-                <div class="col-md-">
-
-                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    Copyright © 2018 AcaraKita. All rights reserved.
+                </div> 
             </div>
         </div>
     </section>

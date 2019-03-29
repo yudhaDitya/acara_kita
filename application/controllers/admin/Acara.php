@@ -18,7 +18,7 @@ class Acara extends MY_Controller
 			'data' => $this->acara_model
 				->with_kategori()
 				->with_ruang()
-				->where('status', 0)
+				->where('status', '!=', 3)
 				->get_all()
 		);
  
@@ -118,7 +118,7 @@ class Acara extends MY_Controller
 	{
 		$this->acara_model->update(array('status' => 1), $id);
 
-		$this->message("Berhasil disetujui", 'success');
+		$this->message("Berhasil disetujui dan sedang menunggu laporan", 'success');
 		$this->go("admin/acara");
 	}
 

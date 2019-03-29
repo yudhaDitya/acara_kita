@@ -54,7 +54,7 @@
                                         @if ($value->status == 0)
                                             <span class="badge badge-warning">Belum Dilihat</span>
                                         @elseif($value->status == 1)
-                                            <span class="badge badge-success">Disetujui</span>
+                                            <span class="badge badge-info">Menunggu Laporan</span>
                                         @else
                                             <span class="badge badge-danger">Ditolak</span>
                                         @endif

@@ -3,7 +3,7 @@
 /**
 * 
 */
-class Homepage extends MY_Controller
+class Acara extends MY_Controller
 {
 	
 	public function __construct()
@@ -17,10 +17,17 @@ class Homepage extends MY_Controller
 
 	public function index()
 	{
-		$data['acara']    = $this->acara_model->with_kategori()->where('status', 1)->get_all();
+		$data['acara']         = $this->acara_model->with_kategori()->where('status', 1)->get_all();
 		$data['ruang_terbuka'] = $this->ruang_model->with_kecamatan()->limit(4)->order_by('rand()')->get_all();
 
 		$this->render('homepage', $data);
+	}
+
+	public function detail($id)
+	{ 
+		$data['data'] = $this->acara_model->with_kategori()->with_eo()->with_ruang()->get($id);
+
+		$this->render('acara/detail', $data);
 	}
 
 }

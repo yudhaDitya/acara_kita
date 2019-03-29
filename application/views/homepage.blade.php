@@ -24,58 +24,30 @@
             <p class="mb-3">Datang dan saksikan acara - acara berikut </p> 
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <div class="card-event">
-                    <div class="caption">
-                        <span>Budaya</span>
-                    </div>
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h6 class="mb-0">Tari Gandrung</h6>
-                        <p class="event-date mb-2">Sabtu, 6 Desember | 17:00 - 21:00</p> 
-                        <span class="event-address"><i class="fas fa-map-pin pr-1"></i> Pessanggaran, Banyuwangi</span>
-                    </div>
-                </div>
-            </div> 
-            <div class="col-md-3">
-                <div class="card-event">
-                    <div class="caption">
-                        <span>Budaya</span>
-                    </div>
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h6 class="mb-0">Tari Gandrung</h6>
-                        <p class="event-date mb-2">Sabtu, 6 Desember | 17:00 - 21:00</p> 
-                        <span class="event-address"><i class="fas fa-map-pin pr-1"></i> Pessanggaran, Banyuwangi</span>
-                    </div>
-                </div>
-            </div> 
-            <div class="col-md-3">
-                <div class="card-event">
-                    <div class="caption">
-                        <span>Budaya</span>
-                    </div>
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h6 class="mb-0">Tari Gandrung</h6>
-                        <p class="event-date mb-2">Sabtu, 6 Desember | 17:00 - 21:00</p> 
-                        <span class="event-address"><i class="fas fa-map-pin pr-1"></i> Pessanggaran, Banyuwangi</span>
-                    </div>
-                </div>
-            </div> 
-            <div class="col-md-3">
-                <div class="card-event">
-                    <div class="caption">
-                        <span>Budaya</span>
-                    </div>
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h6 class="mb-0">Tari Gandrung</h6>
-                        <p class="event-date mb-2">Sabtu, 6 Desember | 17:00 - 21:00</p> 
-                        <span class="event-address"><i class="fas fa-map-pin pr-1"></i> Pessanggaran, Banyuwangi</span>
-                    </div>
-                </div>
-            </div>  
+            @if (!empty($acara))
+                @foreach ($acara as $value)
+                    <div class="col-md-3">
+                        <div class="card-event" onclick="location.href = '{{ site_url('acara/detail/'.$value->id) }}';">
+                            <div class="caption">
+                                <span>{{ $value->kategori->nama_kategori }}</span>
+                            </div>
+                            <?php 
+                                $foto = (empty($value->foto)) ? site_url('uploads/acara/foto/default.png') : site_url('uploads/acara/foto/'.$value->foto)
+                            ?> 
+                            <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h6 class="mb-0">{{ $value->judul_acara }}</h6>
+                                <p class="event-date mb-2">{{ $value->tanggal }} | {{ $value->waktu }}</p> 
+                                <span class="event-address"><i class="fas fa-map-pin pr-1"></i> Pessanggaran, Banyuwangi</span>
+                            </div>
+                        </div>
+                    </div> 
+                @endforeach
+            @else  
+            <div class="col-md-12"> 
+                <p>Ooops.. Belum ada</p>
+            </div>
+            @endif  
         </div> 
     </div>
 </section>
@@ -90,8 +62,11 @@
         <div class="row">
             @foreach ($ruang_terbuka as $value)
             <div class="col-md-3">
-                <div class="card">
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
+                <div class="card"> 
+                    <?php 
+                        $foto = (empty($value->foto)) ? site_url('uploads/ruang_terbuka/default.png') : site_url('uploads/ruang_terbuka/'.$value->foto); 
+                    ?> 
+                    <img src="{{ $foto }}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="mb-0">{{ $value->nama_rt }}</h5>
                         <span class="rt-address"><i class="fas fa-map-pin pr-1"></i> {{ $value->kecamatan->kecamatan }}, Banyuwangi</span> 

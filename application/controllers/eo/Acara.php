@@ -17,7 +17,11 @@ class Acara extends MY_Controller
 	public function index()
 	{ 
 		$data = array(
-			'data' => $this->acara_model->with_kategori()->with_ruang()->get_all()
+			'data' => $this->acara_model
+				->with_kategori()
+				->with_ruang()
+				->where('id_eo', $this->eo_id)
+				->get_all()
 		);
  
 		$this->render('eo/acara/index', $data);
@@ -96,10 +100,7 @@ class Acara extends MY_Controller
 	}
 
 	public function hapus($id)
-	{
-		$this->db->where('id_barang', $id);
-		$this->db->delete('riwayat_stok'); 
-
+	{ 
 		$this->acara_model->delete($id);
 		$this->go('eo/acara');
 	}

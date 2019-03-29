@@ -93,17 +93,9 @@
                     <div class="form-group row">
                         <label for="proposal" class="col-sm-2 col-form-label">Upload Proposal</label>
                         <div class="col-sm-5">
-                            <input type="file" class="form-control" id="proposal" name="proposal">
-                            <small class="mb-3">Kosongi dulu bila proposal masih dalam pembuatan</small>
+                            <input type="file" class="form-control mb-4" id="proposal" name="proposal" required> 
                         </div>
-                    </div> 
-                    <div class="form-group row">
-                        <label for="foto" class="col-sm-2 col-form-label">Upload Foto</label>
-                        <div class="col-sm-5">
-                            <input type="file" class="form-control" id="foto" name="foto">
-                            <small class="mb-3">Kosongi dulu bila proposal masih dalam pembuatan</small>
-                        </div>
-                    </div> 
+                    </div>  
                     <div class="form-group row">
                         <label for="harga" class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-5">

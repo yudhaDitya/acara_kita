@@ -30,7 +30,7 @@ $sub_page = $this->uri->segment(3);
                     <li class="nav-item">
                         <a class="nav-link {{ ($page == 'produk')?'active':'' }}" href="{{ site_url('admin/produk'); }}"><i class="fa fa-fw fa-boxes"></i>Event Organizer</a> 
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link {{ ($page == 'master')?'active':'' }}" href="#" data-toggle="collapse" aria-expanded="{{ ($page == 'master')?'true':'false' }}" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-database"></i>Data Master</a>
                         <div id="submenu-1" class="{{ ($page == 'master')?'collapsed':'collapse' }} submenu" style="">
                             <ul class="nav flex-column">
@@ -39,7 +39,7 @@ $sub_page = $this->uri->segment(3);
                                 </li> 
                             </ul>
                         </div>
-                    </li> 
+                    </li> -->
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-fw fa-chart-pie"></i>Laporan</a>
                         <div id="submenu-2" class="collapse submenu" style="">

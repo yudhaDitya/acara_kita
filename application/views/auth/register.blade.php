@@ -50,17 +50,18 @@ Login Page
                     </div>
 
                     <div class="card-body">
+                            <p>Sudah punya akun? <a href="{{ site_url('auth/login') }}">Login</a></p>
                                                 
                         <form action="{{ site_url('auth/doRegister') }}" method="POST">
                             {{ $csrf }}
 
                             <div class="form-group">
                                 <label for="nama_user">Nama</label>
-                                <input type="text" class="form-control" id="nama_user" name="nama_user"> 
+                                <input type="text" class="form-control" id="nama_user" name="nama_user" value="{{ set_value('nama_user') }}"> 
                             </div>
                             <div class="form-group">
                                 <label for="username">Email</label>
-                                <input type="email" class="form-control" id="username" name="username"> 
+                                <input type="email" class="form-control" id="username" name="username" value="{{ set_value('username') }}"> 
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
@@ -72,11 +73,11 @@ Login Page
                             </div> 
                             <div class="form-group">
                                 <label for="nama_eo">Nama Event Organizer</label>
-                                <input type="text" class="form-control" id="nama_eo" name="nama_eo"> 
+                                <input type="text" class="form-control" id="nama_eo" name="nama_eo" value="{{ set_value('nama_eo') }}"> 
                             </div>
                             <div class="form-group">
                                 <label for="asal">Asal</label>
-                                <select name="asal" id="asal" class="form-control">
+                                <select name="asal" id="asal" class="form-control" required>
                                     <option value="">- Asal Tim EO -</option>
                                     <option value="0">Sekolah</option>
                                     <option value="1">Perguruan Tinggi</option>

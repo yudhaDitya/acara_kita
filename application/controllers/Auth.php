@@ -94,7 +94,7 @@ class Auth extends MY_Controller
 	{
 		$this->my_auth->do_logout();
 
-		$this->go('auth/login');
+		$this->go('/');
 	}
 
 }
