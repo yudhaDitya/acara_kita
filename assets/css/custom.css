@@ -1,0 +1,74 @@
+.bg-grey {
+    background-color: #d4d3d3;
+}
+
+
+.card-table {
+    padding: 0px;
+    border-radius: 10px
+}
+
+.footer { 
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.table thead th, .table th {
+    font-weight: 800
+}
+
+.btn-primary { 
+    letter-spacing: 1.5px;
+    font-weight: 700
+}
+
+
+.icon-input-form {
+    position: absolute;
+    width: auto;
+    bottom: 10px;
+    right: 10px;  
+    top: 8px;
+}
+.icon-input-form .fa-barcode {
+    font-size: 30px;
+    padding-top: 2px
+}
+.icon-empty-data {
+    font-size: 50px;
+    color: rgb(112, 112, 112); 
+}
+
+.text-grey {
+    color: grey
+}
+
+.form-group.row {
+    margin-bottom: 3px;
+    padding: 3px 0;
+}
+
+.kembalian {
+    font-size: 40px
+}
+
+.form-group label {
+    font-size: .8571em;
+    text-align: right;
+}
+
+@media only screen and (max-width: 600px) { 
+    .form-group label { 
+        text-align: left;
+    }
+}
+
+.card { 
+    border-radius: 12px;
+    box-shadow: 0 6px 10px -4px rgba(0,0,0,.15);
+}
