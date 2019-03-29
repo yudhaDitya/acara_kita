@@ -31,7 +31,7 @@ class Acara extends MY_Controller
 			'data' => $this->acara_model
 				->with_kategori()
 				->with_ruang()
-				->where('status', '!=', 0)
+				->where('status', 3)
 				->get_all()
 		);
  

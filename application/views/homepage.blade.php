@@ -88,20 +88,26 @@
         </div>
 
         <div class="row">
+            @foreach ($ruang_terbuka as $value)
             <div class="col-md-3">
                 <div class="card">
                     <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="mb-0">RTH Maron</h5>
-                        <span class="rt-address"><i class="fas fa-map-pin pr-1"></i> Genteng, Banyuwangi</span> 
+                        <h5 class="mb-0">{{ $value->nama_rt }}</h5>
+                        <span class="rt-address"><i class="fas fa-map-pin pr-1"></i> {{ $value->kecamatan->kecamatan }}, Banyuwangi</span> 
 
                         <div class="mt-3">
-                            <a href="" class="btn btn-sm btn-primary btn-block">Ajukan Proposal Acara</a>
-                            <a href="" class="btn btn-sm btn-info btn-block">Beri Donasi</a>
+                            <a href="{{ site_url('auth/register') }}" class="btn btn-sm btn-primary btn-block">Ajukan Proposal Acara</a>
+                            <a href="{{ site_url('donasi') }}" class="btn btn-sm btn-info btn-block">Beri Donasi</a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
+            @endforeach
+        </div>
+
+        <div class="text-center"> 
+            <a href="{{ site_url('rth') }}" class="btn btn-outline-primary text-center my-3 btn-round">Lihat Selengkapnya</a>
         </div>
     </div>
 </section>

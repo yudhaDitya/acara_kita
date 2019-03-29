@@ -131,6 +131,9 @@ hr {
 .bg-footer {
     background-color: #0D47A1
 } 
+.btn-round {
+    border-radius: 15px
+}
 
 .menu-title {
     letter-spacing: 2px

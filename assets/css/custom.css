@@ -26,6 +26,9 @@
     letter-spacing: 1.5px;
     font-weight: 700
 } */
+.btn-round {
+    border-radius: 15px
+}
 
 
 .icon-input-form {

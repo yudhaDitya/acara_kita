@@ -20,7 +20,7 @@
     
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
         <a class="navbar-brand" href="#"> 
-            <img src="assets/image/logo.png" width="30" height="30" alt="">
+            <img src="{{ site_url() }}assets/front/image/logo.png" width="30" height="30" alt="">
             <b>Acara Kita</b>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

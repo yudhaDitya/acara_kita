@@ -26,8 +26,7 @@ class My_auth
                                         'user_type'	    => 'admin',
                                         'username'	    => $user->username,
                                         'user_level'	    => $user->hak_akses, 
-                                ); 
-                                dump($user->hak_akses);
+                                );  
                                 if ($user->hak_akses == 'E') {
                                         $event_organizer = $this->CI->eo_model->where('id_pengguna', $user->id)->get();
                                         $session_data = $event_organizer->id;

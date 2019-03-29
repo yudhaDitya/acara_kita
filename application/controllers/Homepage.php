@@ -10,11 +10,17 @@ class Homepage extends MY_Controller
 	{
 		parent::__construct();
 		$this->_accessable = TRUE; 
+
+		$this->load->model("ruang_model");
+		$this->load->model("admin/acara_model");
 	}
 
 	public function index()
 	{
-		$this->render('homepage');
+		$data['acara_baru']    = '';
+		$data['ruang_terbuka'] = $this->ruang_model->with_kecamatan()->limit(4)->order_by('rand()')->get_all();
+
+		$this->render('homepage', $data);
 	}
 
 }

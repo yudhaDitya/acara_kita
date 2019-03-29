@@ -14,7 +14,7 @@ Login Page
         border-radius: 10px !important; 
     }
     .page-login {
-        background: linear-gradient(40deg, rgba(62, 62, 63, 0.7), rgba(77, 77, 78, 0.367)),url(https://banyuwangitourism.com/new_banyuwangi/Banyuwangi_Administrator/public/images/event/1925e0b612a360efd6358b064003e9c4.jpg);
+        background: linear-gradient(40deg, rgba(62, 62, 63, 0.7), rgba(77, 77, 78, 0.367)),url(https://4.bp.blogspot.com/-VEZ1w2MVDyc/W6nSfRsP_II/AAAAAAAAaSA/tAHXNR3qMD4u4Mv5WvYzyMr6OkDdya7bACLcBGAs/s1600/jazz%2Bgunung%2Bijen.jpeg);
         background-size: cover; background-position: center center;
         background-repeat:  no-repeat;
           background-attachment: fixed; 
