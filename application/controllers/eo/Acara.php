@@ -6,6 +6,8 @@ class Acara extends MY_Controller
 	{
 		parent::__construct(); 
 
+		$this->load->model('ruang_model');
+		$this->load->model('kecamatan_model');
 		$this->load->model('kategori_acara_model');
 		$this->load->model('eo/acara_model', 'acara_model'); 
 	}
@@ -13,7 +15,7 @@ class Acara extends MY_Controller
 	public function index()
 	{  
 		$data = array(
-			'data' => $this->acara_model->with_kategori()->get_all()
+			'data' => $this->acara_model->with_kategori()->with_ruang()->get_all()
 		);
  
 		$this->render('eo/acara/index', $data);
@@ -22,7 +24,8 @@ class Acara extends MY_Controller
 	public function tambah()
 	{    
 		$data = array(
-			'kategori' => $this->kategori_model->get_all()
+			'kategori_acara' => $this->kategori_acara_model->with_kecamatan()->get_all(),
+			'ruang_terbuka'  => $this->ruang_model->get_all()
 		);
 
 		$this->generateCsrf();
@@ -31,28 +34,23 @@ class Acara extends MY_Controller
 	public function simpan()
 	{
 		$data = $this->input->post();
-		$stok = $data['stok'];
+		
+		$data['nominal_dana']  = str_replace(',', '', $data['nominal_dana']);
 
-		unset($data['stok']);
-  
-		$data['harga_beli']  = str_replace(',', '', $data['harga_beli']);
-		$data['harga_jual']  = str_replace(',', '', $data['harga_jual']);
-		$data['created_at']  = gmdate("Y-m-d H:i:s", time()+60*60*7); 
-		$data['kode_barang'] = kode_barang(); 
+		if (!empty($_FILES['proposal']['name'])) {
+			$proposal         = $this->upload_proposal();
+			$data['proposal'] = $proposal; 
+		}
+		// if (!empty($_FILES['foto']['name'])) {
+		// 	$foto         = $this->upload_foto();
+		// 	$data['foto'] = $foto; 
+		// } 
+		
 
-		$insert_barang = $this->acara_model->insert($data);
+		$this->acara_model->insert($data);
+		$this->message("Data berhasil disimpan", 'success');
 
-		$data_riwayat_stok = array(
-			'id_barang'   => $insert_barang, 
-			'jumlah'      => $stok,
-			'status'      => 'M',
-			'keterangan'  => "Stok awal dari proses input barang",
-			'created_at'  => gmdate("Y-m-d H:i:s", time()+60*60*7),
-			'created_by'  => 1
-		);
-		$this->stok_model->insert($data_riwayat_stok);
-
-		$this->go('eo/barang');
+		$this->go('eo/acara');
 	}
 
 	public function edit($id)
@@ -64,7 +62,7 @@ class Acara extends MY_Controller
 		);
 
 		$this->generateCsrf();
-		$this->render('eo/barang/edit', $data);
+		$this->render('eo/acara/edit', $data);
 	}
 	public function ubah()
 	{
@@ -85,7 +83,7 @@ class Acara extends MY_Controller
 		$this->acara_model->update($data, $this->input->post('id'));
 
 		if ($stok_awal == $stok_input) {
-			$this->go('eo/barang');			
+			$this->go('eo/acara');			
 		} else if ($stok_input < $stok_awal) {
 			$jumlah = $stok_awal - $stok_input;
 			$status = 'K';
@@ -104,7 +102,7 @@ class Acara extends MY_Controller
 		);
 		$this->stok_model->insert($data_riwayat_stok);
 
-		$this->go('eo/barang');
+		$this->go('eo/acara');
 	}
 
 	public function detail($id)
@@ -112,7 +110,7 @@ class Acara extends MY_Controller
 		$data['data'] = $this->acara_model->with_kategori()->get($id);
 		$data['stok'] = $this->acara_model->getStok($id);
 
-		$this->render('eo/barang/detail', $data);
+		$this->render('eo/acara/detail', $data);
 	}
 
 	public function hapus($id)
@@ -121,6 +119,56 @@ class Acara extends MY_Controller
 		$this->db->delete('riwayat_stok'); 
 
 		$this->acara_model->delete($id);
-		$this->go('eo/barang');
+		$this->go('eo/acara');
 	}
+
+	
+	function upload_proposal(){ 
+        $set_name   = fileName(1, 'P','',8);
+        $path       = $_FILES['proposal']['name'];
+        $extension  = ".".pathinfo($path, PATHINFO_EXTENSION); 
+
+        $config['upload_path']          = './uploads/acara/proposal/';
+        $config['allowed_types']        = 'pdf|doc|docx';
+        $config['max_size']             = 9024; 
+        $config['file_name']            = $set_name.$extension; 
+		$this->load->library('upload', $config);
+		
+        $upload = $this->upload->do_upload('proposal');
+
+        if ($upload == FALSE) {
+			$error = $this->upload->display_errors();
+			dump($error);
+			$this->message($error, 'danger'); 
+        }
+ 
+        $upload = $this->upload->data(); 
+
+        return $upload['file_name'];
+	} 
+	
+	function upload_foto(){ 
+		$set_name   = fileName(1, 'ACR','',8);
+        $path       = $_FILES['foto']['name'];
+        $extension  = ".".pathinfo($path, PATHINFO_EXTENSION); 
+
+		$config = [];
+        $config['upload_path']          = './uploads/acara/foto/';
+        $config['allowed_types']        = 'jpg|jpeg|png';
+        $config['max_size']             = 9024; 
+        $config['file_name']            = $set_name.$extension; 
+		$this->load->library('upload', $config);
+		
+        $upload = $this->upload->do_upload('foto');
+
+        if ($upload == FALSE) { 
+            $error = $this->upload->display_errors();
+			$this->message($error, 'danger');
+			dump($error);
+        }
+ 
+        $upload = $this->upload->data(); 
+
+        return $upload['file_name'];
+    } 
 }

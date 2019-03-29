@@ -14,8 +14,7 @@ class Ruang_terbuka extends MY_Controller
 	{  
 		$data = array(
 			'data' => $this->ruang_model->with_kecamatan()->get_all()
-		);
-		dump($data);
+		); 
  
 		$this->render('admin/ruang_terbuka/index', $data);
 	}

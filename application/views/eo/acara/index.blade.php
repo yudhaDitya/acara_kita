@@ -12,7 +12,7 @@
                     <h3 class="mb-0 mt-2 align-items-center">Acara</h3> 
                 </div>
                 <div class="col-md-6 text-right">
-                    <a href="{{ site_url('admin/barang/tambah') }}" class="btn btn-primary btn-sm mb-2"><i class="fas fa-plus"></i> Ajukan Proposal</a> 
+                    <a href="{{ site_url('eo/acara/tambah') }}" class="btn btn-primary btn-sm mb-2"><i class="fas fa-plus"></i> Ajukan Proposal</a> 
                 </div>
             </div>
             <div class="page-breadcrumb">
@@ -45,14 +45,12 @@
                     <tbody>
                         @if (!empty($data))
                             @foreach ($data as $value)
-                                <tr> 
-                                    <td>
-                                        <a href="{{ site_url('admin/barang/detail/'.$value->id); }}" class="text-primary">{{ $value->kode_barang }}</a>
-                                    </td>
-                                    <td>{{ $value->nama_barang }}</td>
-                                    <td>{{ $value->kategori->nama_jenis }}</td>
-                                    <td>{{ rupiah($value->harga_jual) }}</td>
-                                    <td>{{ $this->barang_model->getStok($value->id); }}</td>
+                                <tr>  
+                                    <td>{{ $value->judul_acara }}</td>
+                                    <td>{{ $value->tanggal }} - {{ $value->waktu }}</td>
+                                    <td>{{ $value->ruang->nama_rt }}</td>
+                                    <td>{{ rupiah($value->nominal_dana) }}</td>
+                                    <td>{{ $value->status }}</td>
                                     <td>
                                         <a href="{{ site_url('admin/barang/detail/'.$value->id); }}"><i class="fas fa-eye"></i></a>
                                         <a href="{{ site_url('admin/barang/edit/'.$value->id); }}"><i class="fas fa-edit"></i></a>
